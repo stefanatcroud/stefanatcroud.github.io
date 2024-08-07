@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <!-- Google CoMo Default -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("consent", "default", {
+            ad_personalization: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            analytics_storage: "denied",
+            functionality_storage: "denied",
+            personalization_storage: "denied",
+            security_storage: "granted",
+            wait_for_update: 500,
+        });
+        gtag("set", "ads_data_redaction", false);
+        gtag("set", "url_passthrough", true);
+    </script>
+    <!-- End Google CoMo Default -->
+
+    <!-- Page metadata -->
+    <script>
+    dataLayer.push(
+        {
+            "page_type": "order",
+            "page_name": "checkout_order_confirmation",
+            "order_delivery_country": "gb",
+            "order_billing_country": "gb",
+            "delivery_type": "standard",
+            "order_payment_method": "card",
+            "event_source": "web",
+            "site_version": "desktop",
+            "site_region": "gb",
+            "site_language": "en",
+            "site_currency": "gbp",
+            "visitor_status": "logged out",
+            "wcs_user_id": "3299434420"
+        }
+    )
+    </script>
+    <!-- End page metadata -->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PKCKML5B');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google CoMo Update -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        gtag("consent", "update", {
+            ad_personalization: "granted",
+            ad_storage: "granted",
+            ad_user_data: "granted",
+            analytics_storage: "granted",
+            functionality_storage: "granted",
+            personalization_storage: "granted",
+            security_storage: "granted"
+        });
+    </script>
+    <!-- End Google CoMo Update -->
+</head>
+
+<body>
+    <main>
+        <h1>Purchase event test</h1>
+        <button onclick="purchaseTestEvent()">Send purchase event</button>
+
+        <script>
+            function purchaseTestEvent() {
+                dataLayer.push(
+                    {
+                        "event": "purchase",
+                        "ecommerce": {
+                            "affiliation": "desktop",
+                            "transaction_id": "215158493",
+                            "value": 25.94,
+                            "tax": 0,
+                            "shipping": 5.95,
+                            "currency": "GBP",
+                            "items": [
+                                {
+                                    "item_id": "409-73041432-05CWPHSCTD",
+                                    "item_name": "pink himalayan salted caramel truffles 120g",
+                                    "item_brand": "charbonnel et walker",
+                                    "item_category": "food|3761",
+                                    "item_category2": "confectionery|52",
+                                    "item_category3": "confectionery|409",
+                                    "price": 19.99,
+                                    "quantity": 1,
+                                    "currency": "GBP",
+                                    "product_season": "continuity",
+                                    "product_obcn": "ob",
+                                    "prodID": "6987032"
+                                }
+                            ]
+
+                        }                        
+                    }
+                )
+            }
+        </script>
+
+
+    </main>
+</body>
+
+</html>
