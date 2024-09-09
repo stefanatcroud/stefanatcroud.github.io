@@ -1,5 +1,5 @@
+<!DOCTYPE html>
 <html>
-
 <head>
     <!-- Google CoMo Default -->
     <script>
@@ -69,12 +69,17 @@
     </head>
     
     <body>
+        <header>
+            <nav>
+                GitHub Link: <a href="https://github.com/stefanatcroud/stefanatcroud.github.io" target="_blank">https://github.com/stefanatcroud/stefanatcroud.github.io</a>
+            </nav>
+        </header>
         <main>
             <h1>Purchase event test</h1>
-            <button onclick="purchaseTestEvent()">Send purchase event</button>
+            <button onclick="purchaseTestEventGTM()">Send GTM purchase event</button>
     
             <script>
-                function purchaseTestEvent() {
+                function purchaseTestEventGTM() {
                     dataLayer.push(
                         {
                             "event": "purchase",
@@ -107,9 +112,16 @@
                     )
                 }
             </script>
-    
+
+            <button onclick="purchaseTestEventTealium()">Send Tealium purchase event</button>
+
+            <script>
+                function purchaseTestEventTealium() {
+                    console.log("Not yet implemented");
+                }
+            </script>
     
         </main>
     </body>
     
-    </html>
+</html>
