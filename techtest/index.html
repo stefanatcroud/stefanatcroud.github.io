@@ -1,29 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Consent Mode V2 -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('consent', 'default', {
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            analytics_storage: 'denied',
-            wait_for_update: 500
-        });
-        gtag('set', 'url_passthrough', true);
-    </script>
-    <!-- End Google Consent Mode V2 -->
-    
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KT26QLZG');</script>
-    <!-- End Google Tag Manager -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,6 +9,143 @@
 
 <body>
     <h1>Croud Analytics Activation Technical Test</h1>
+
+    <!-- Beginning of GTM container injector -->
+    <!-- Taken from AnalyticsMania GTM course https://www.analyticsmania.com/courses/google-tag-manager-course-for-beginners/ -->
+
+  
+  <style>
+    .injected-label {
+      font-weight: bold;
+      color: green;
+    }
+
+#gtmFormWrapper {
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically if needed */
+  height: 100%; /* Ensure the wrapper takes full height if centering vertically is needed */
+  text-align: center;
+  margin-top: 15px;
+}
+
+#gtmForm {
+  display: grid;
+  align-items: center; /* Align input and button vertically */
+  margin-bottom: 30px;
+  max-width: 350px;
+}
+
+  #gtmLabel {
+    margin-bottom: 5px; /* Add space between the label and the input */
+    display: block; /* Ensure the label is above the input field */
+	  color: #606060;
+  }
+
+  #gtmContainerId {
+    border: 2px solid #606060;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 3px; /* Rounded corners for the input field */
+    outline: none;
+    flex-grow: 1; /* Make the input field take available space */
+  }
+
+  #injectButton {
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+	
+	.injected-label {
+      color: green!important;
+    }
+  </style>
+<div id="gtmFormWrapper"> 
+ <form id="gtmForm">
+    <label id="gtmLabel" for="gtmContainerId">Enter GTM container ID:</label>
+    <input type="text" id="gtmContainerId" name="gtm-container-id" placeholder="GTM-XXXXXX" required="" autocomplete="on">
+    <button type="button" id="injectButton" onclick="handleButtonClick()">Inject container</button>
+  </form>
+</div>
+
+<script>
+    // Function to validate GTM Container ID
+    function isValidGTMId(id) {
+      const gtmRegex = /^GTM-\w{4,}$/; // Regex to validate GTM format
+      return gtmRegex.test(id);
+    }
+
+    // Function to handle button click and form submission
+    function handleButtonClick() {
+      const gtmContainerId = localStorage.getItem("sandbox_gtm_container_id");
+      const button = document.getElementById("injectButton");
+
+      if (gtmContainerId) {
+        // If container is already injected, stop injection
+        localStorage.removeItem("sandbox_gtm_container_id");
+        location.reload();
+      } else {
+        const inputId = document.getElementById("gtmContainerId").value;
+        if (!isValidGTMId(inputId)) {
+          alert("Invalid GTM Container ID. Please use the format GTM-XXXXXX.");
+          return;
+        }
+        // Store GTM Container ID in localStorage
+        localStorage.setItem("sandbox_gtm_container_id", inputId);
+        location.reload();
+      }
+    }
+
+    // Add an event listener to handle form submission
+    document.getElementById("gtmForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission behavior
+      handleButtonClick(); // Call the function to inject GTM
+    });
+
+    // Function to inject GTM script if container ID exists in localStorage
+    function injectGTMOnPageLoad() {
+      const gtmContainerId = localStorage.getItem("sandbox_gtm_container_id");
+      const button = document.getElementById("injectButton");
+      const label = document.getElementById("gtmLabel");
+
+      if (gtmContainerId) {
+        // Set the value of the #gtmContainerId input field
+        document.getElementById("gtmContainerId").value = gtmContainerId;
+        // Change button text to "Stop injection"
+        button.textContent = "Stop injection";
+        // Update label text and style to indicate the current container
+        label.textContent = "Currently injected container:";
+        label.classList.add("injected-label"); // Add the class for styling
+        
+        if (isValidGTMId(gtmContainerId)) {
+          // Inject GTM script
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmContainerId}`;
+          
+          document.head.appendChild(script);
+
+          // Add GTM initialization script
+          const gtmScript = document.createElement("script");
+          gtmScript.textContent = `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${gtmContainerId}');
+          `;
+          document.head.appendChild(gtmScript);
+        }
+      }
+    }
+
+    // Run the function on page load
+    injectGTMOnPageLoad();
+  </script>
+
+<!-- End of GTM container injector -->
 </body>
 
 </html>
